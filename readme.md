@@ -3,7 +3,7 @@ A simple script that connects random blocks
 
 This version includes empty blocks
 
-Check it out @ http://2shine.nl/demo/rpg/
+Check it out @ http://2shine.nl/demo/rpg/emptyblock.php
 
 ## How it works
 * For every new block an array of options is set
