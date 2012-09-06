@@ -7,4 +7,4 @@ A simple script that connects random blocks
 * Based on the blocks to the left and above certain options are removed
 * A random block is selected from what is left
 
-That's all!
+Check it out @ http://2shine.nl/demo/rpg/
