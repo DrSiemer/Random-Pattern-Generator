@@ -11,7 +11,7 @@
   <style type="text/css">
     #main {
       margin: auto;
-      width: 900px;
+      width: 1200px;
       padding-top: 25px;
     }
   </style>
@@ -20,7 +20,7 @@
 <body>
 
   <div id="main">
-    
+  
     <?php
      	
       function requireDir($arr, $dir)
@@ -41,27 +41,23 @@
       
       $v=1;
       $h=1;
-      $num_v = 21;
-      $num_h = 31;
+      $maxHeight = 21;
+      $maxWidth = 41;
       
-      while ($v < $num_v)
+      while ($v < $maxHeight)
       {
-      	while ($h < $num_h)
+      	while ($h < $maxWidth)
 	      {
-          # All options in equal amount
-        	// $options = array('t', 'r', 'b', 'l', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'trbl');
-          
-          # No dead ends
-          // $options = array('tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'trbl');
-          
           # A few dead ends and crossings
-          $options = array('t', 'r', 'b', 'l', 'trbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl');
+          $options = array('x', 't', 'r', 'b', 'l', 'trbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl');
+          # Start empty
+          // $options = array('x');
           
           # Fix edges
           if ($h == 1) { $options = removeDir($options, 'l'); }
           if ($v == 1) { $options = removeDir($options, 't'); }
-          if ($h == ($num_h-1)) { $options = removeDir($options, 'r'); }
-          if ($v == ($num_v-1)) { $options = removeDir($options, 'b'); }
+          if ($h == ($maxWidth-1)) { $options = removeDir($options, 'r'); }
+          if ($v == ($maxHeight-1)) { $options = removeDir($options, 'b'); }
           
           # Check left
         	if (preg_match('/r/', $left)) { $options = requireDir($options, 'l'); }
@@ -75,11 +71,10 @@
           }
           
           # Place next part
-          $randompartkey = array_rand($options);
-          $part = $options[$randompartkey];
+          $part = $options[array_rand($options)];
           $left = $part;
           $parts[$v][$h] = $part;
-          if ($part) { echo '<img src="img/'.$part.'.jpg" width="30" height="30" alt="" />'; }
+          if ($part) { echo '<img id="v'.$v.'h'.$h.'" src="img/'.$part.'.jpg" width="30" height="30" alt="" />'; }
 	        $h++;
 	      }
         
@@ -89,8 +84,14 @@
       }
       
     ?>
+    
+    <p>Press 'R' to toggle the Randomizer</p>
 
   </div>
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
+  <script src="js/main.js" type="text/javascript" /></script>
 
 </body>
 </html>
