@@ -1,5 +1,6 @@
 # Random Pattern Generator
 A simple script that connects random blocks
+
 Interactive version: move mouse / press R for random changes
 
 Check it out @ http://2shine.nl/demo/rpg/interactive
