@@ -1,9 +1,9 @@
 # Random Pattern Generator
 A simple script that connects random blocks
 
-Check it out @ http://2shine.nl/demo/rpg/
-Emptyblock branch @ http://2shine.nl/demo/rpg/emptyblock.php
-Interactive branch @ http://2shine.nl/demo/rpg/interactive.php
+* Check it out @ http://2shine.nl/demo/rpg/
+* Emptyblock branch @ http://2shine.nl/demo/rpg/emptyblock.php
+* Interactive branch @ http://2shine.nl/demo/rpg/interactive.php
 
 
 ## How it works
