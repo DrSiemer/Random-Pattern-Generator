@@ -261,6 +261,7 @@ function walk()
 // Place all empty tiles
 function clearBoard()
 {
+  if (walker_active == true) { disableWalker(); }
   $('#playfield img.tile').attr('src', 'img/x.jpg');
   visited = setupVisited();
 }
@@ -273,6 +274,8 @@ function toggleRandomizer()
 }
 
 // Enable/disable walker
+function enableWalker() { startWalker(); walker_active = true; $('#walker_state').css('text-decoration', 'underline'); }
+function disableWalker() { $('#walker').hide(250); walker_active = false; $('#walker_state').css('text-decoration', 'none'); }
 function toggleWalker()
 {
   var tileFound = false;
@@ -280,8 +283,7 @@ function toggleWalker()
     if ($(this).attr('src') != 'img/x.jpg') { tileFound = true; }
   });
   if (tileFound == true) {
-    if (walker_active == true) { $('#walker').hide(250); walker_active = false; $('#walker_state').css('text-decoration', 'none'); }
-    else { startWalker(); walker_active = true; $('#walker_state').css('text-decoration', 'underline'); }
+    if (walker_active == true) { disableWalker(); } else { enableWalker(); }
   }
   else { alert('No tiles to walk... :('); }
 }
