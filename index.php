@@ -82,16 +82,17 @@
         }
         ?>
         <img id="walker" src="img/walker.png" width="8" height="8" />
-        <div id="shortcuts">
-          <p>Press <b>C</b> to <span class="hint" id="clear">clear the board</span> |
-             Press <b>R</b> to toggle the <span class="hint" id="randomizer_state" title="Replaces random tiles">Randomizer</span> |
-             Press <b>W</b> to start the <span class="hint" id="walker_state" title="Shows a blue ball exploring the maze">Walker</span> |
-             Press <b>H</b> to toggle <span class="hint" id="history_state" title="The walker will avoid visited tiles" style="text-decoration: underline">History</span> |
-             Press <b>D</b> to toggle <span class="hint" id="debug_state" title="Fade out visited tiles">Debugmode</span>
-          </p>
-        </div>
       </div>
     </div>
+    <footer>
+      <ul class="shortcuts">
+        <li>Press <strong>C</strong> to <a href="#" class="hint" title="Clear the board" data-action="clear">clear the board</a></li>
+        <li>Press <strong>R</strong> to toggle the <a href="#" class="hint" title="Replaces random tiles" data-action="randomize">Randomizer</a></li>
+        <li>Press <strong>W</strong> to start the <a href="#" class="hint" title="Shows a blue ball exploring the maze" data-action="walker">Walker</a></li>
+        <li>Press <strong>H</strong> to toggle <a href="#" class="hint active" title="The walker will avoid visited tiles" data-action="history">History</a></li>
+        <li>Press <strong>D</strong> to toggle <a href="#" class="hint" title="Fade out visited tiles" data-action="debugmode">Debugmode</a></li>
+      </ul>
+    </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
     <script src="js/main.js" type="text/javascript" /></script>
