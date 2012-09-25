@@ -8,6 +8,16 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="/favicon.ico">
+    <script>
+      if (window!=top){top.location.href=location.href;}
+      document.createElement('header');
+      document.createElement('nav');
+      document.createElement('section');
+      document.createElement('article');
+      document.createElement('aside');
+      document.createElement('footer');
+      document.createElement('time');
+    </script>
   </head>
   <body>
     <div id="main">
