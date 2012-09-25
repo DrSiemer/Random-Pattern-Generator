@@ -34,6 +34,11 @@ define('RPG_ENV', RPG_ENV_DEBUG);
 require_once '/../src/RandomPatternGenerator/bootstrap.php';
 
 /**
+ * Create an instance of the generator
+ */
+$generator = new \RandomPatternGenerator\Core\Generator();
+
+/**
  * Display HTML
  */
 require '/views/index.phtml';
