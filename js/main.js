@@ -313,19 +313,54 @@ function toggleDebugMode()
   });
 
   // Keyboard shortcuts
-  $('body').keyup(function(e){
-    if(e.keyCode == 67){ clearBoard(); } // C
-    if(e.keyCode == 82){ toggleRandomizer(); } // R
-    if(e.keyCode == 87){ toggleWalker(); } // W
-    if(e.keyCode == 72){ toggleHistory(); } // H
-    if(e.keyCode == 68){ toggleDebugMode(); } // D
-    // if(e.keyCode == 78){ walk(); } // N
+  $('body').keyup(function(e) {
+    switch(e.keyCode) {
+      case 67: // C
+        clearBoard();
+        break;
+
+      case 82: // R
+        toggleRandomizer();
+        break;
+
+      case 87: // W
+        toggleWalker();
+        break;
+
+      case 72: // H
+        toggleHistory();
+        break;
+
+      case 68: // D
+        toggleDebugMode();
+        break;
+    }
   });
 
   // Buttons
-  $('#clear').click(function() { clearBoard(); });
-  $('#randomizer_state').click(function() { toggleRandomizer(); });
-  $('#walker_state').click(function() { toggleWalker(); });
-  $('#history_state').click(function() { toggleHistory(); });
-  $('#debug_state').click(function() { toggleDebugMode(); });
+  $('footer li a').click(function() {
+    switch($(this).data('action')) {
+      case 'clear':
+        clearBoard();
+        break;
+
+      case 'randomize':
+        toggleRandomizer();
+        break;
+
+      case 'walker':
+        toggleWalker();
+        break;
+
+      case 'history':
+        toggleHistory();
+        break;
+
+      case 'debug':
+        toggleDebugMode();
+        break;
+    }
+
+    return false;
+  });
 })(jQuery);
