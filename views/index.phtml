@@ -42,31 +42,29 @@
         $v=1;
         $h=1;
 
-        while ($v < $generator->getMaxHeight())
-        {
-          while ($h < $generator->getMaxWidth())
-          {
-            # Tile set with double entries to restrain dead ends and crossings
+        while ($v < $generator->getMaxHeight()) {
+          while ($h < $generator->getMaxWidth()) {
+            // Tile set with double entries to restrain dead ends and crossings
             $options = array('x', 't', 'r', 'b', 'l', 'trbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl');
 
-            # Fix edges
+            // Fix edges
             if ($h == 1) { $options = removeDir($options, 'l'); }
             if ($v == 1) { $options = removeDir($options, 't'); }
             if ($h == ($generator->getMaxWidth() - 1)) { $options = removeDir($options, 'r'); }
             if ($v == ($generator->getMaxHeight() - 1)) { $options = removeDir($options, 'b'); }
 
-            # Check left
+            // Check left
             if (preg_match('/r/', $left)) { $options = requireDir($options, 'l'); }
             else { $options = removeDir($options, 'l'); }
 
-            # Check up
+            // Check up
             if ($v != 1) {
               $above = $tiles[$v-1][$h];
               if (preg_match('/b/', $above)) { $options = requireDir($options, 't'); }
               else { $options = removeDir($options, 't'); }
             }
 
-            # Place next tile
+            // Place next tile
             $tile = $options[array_rand($options)];
             $left = $tile;
             $tiles[$v][$h] = $tile;
