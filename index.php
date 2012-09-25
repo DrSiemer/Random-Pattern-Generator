@@ -8,24 +8,6 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="/favicon.ico">
-    <style type="text/css">
-      #main {
-        position: relative;
-        margin: auto;
-        width: 1200px;
-        padding-top: 25px;
-      }
-      #shortcuts {
-        text-align: center;
-      }
-      #walker {
-        position: absolute;
-        display: none;
-      }
-      .hint {
-        cursor: pointer;
-      }
-    </style>
   </head>
   <body>
     <div id="main">
