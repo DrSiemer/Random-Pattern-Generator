@@ -1,14 +1,29 @@
-// Set global variables
-function setupVisited() {
-  var arr = [];
-  for (var i=1; i<maxHeight; i++) {
-    arr['v'+i] = [];
-    for (var j=1; j<maxWidth; j++) {
-      arr['v'+i]['h'+j] = 0;
+function RandomPatternGenerator($playfield)
+{
+  this.$playfield = $playfield;
+  this.maxWidth = this.$playfield.data('maximum-x');
+  this.maxHeight = this.$playfield.data('maximum-y');
+  this.history = [];
+
+  this.initializeHistory = function() {
+    // cache the initialized array to prevent looping when it is not needed
+    var temp = [];
+    for (var x = 1; x < this.maxWidth; x++) {
+      temp[(y-1)].push(0);
     }
-  }
-  return arr;
+
+    for (var y = 1; y < this.maxHeight; y++) {
+      this.history.push(temp);
+    }
+  }.bind(this);
+
+  this.initialize = function () {
+    this.initializeHistory();
+  }.bind(this);
+
+  this.initialize();
 }
+
 var debugMode = false;
 var maxWidth = 41;
 var maxHeight = 21;
@@ -289,6 +304,8 @@ function toggleDebugMode()
 }
 
 (function($) {
+  var randomPatternGenerator = new RandomPatternGenerator($('#playfield'));
+
   // Mouse interaction
   $('#playfield img.tile').mouseover(function(){
     var id = '#'+$(this).attr('id');
