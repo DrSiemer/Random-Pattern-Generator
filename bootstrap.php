@@ -37,6 +37,7 @@ require_once '/../src/RandomPatternGenerator/bootstrap.php';
  * Create an instance of the generator
  */
 $generator = new \RandomPatternGenerator\Core\Generator();
+$generator->generate();
 
 /**
  * Display HTML
