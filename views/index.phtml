@@ -21,11 +21,11 @@
   </head>
   <body>
     <div id="main">
-      <div id="playfield">
+      <div id="playfield" data-maximum-x="<?php echo $generator->getMaxWidth(); ?>" data-maximum-y="<?php echo $generator->getMaxHeight(); ?>">
         <?php
         foreach ($generator as $rowKey => $row) {
             foreach ($row as $columnKey => $column) {
-                echo '        <img class="tile" id="y' . $rowKey . 'y' . $columnKey . '" src="/img/' . $column . '.jpg" width="30" height="30" alt="">';
+                echo '        <img class="tile" data-y="' . $rowKey . '" data-x="' . $columnKey . '" src="/img/' . $column . '.jpg" width="30" height="30" alt="">';
             }
             echo '<br>';
         }
