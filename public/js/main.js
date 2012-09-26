@@ -1,17 +1,3 @@
-// Shuffle characters in a string
-String.prototype.shuffle = function ()
-{
-    var a = this.split(''), n = a.length;
-    for(var i = n - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
-    }
-    return a.join('');
-}
-
-
 // Set global variables
 function setupVisited() {
   var arr = [];
@@ -92,28 +78,28 @@ function fixBlock(v, h)
     if(src.indexOf('b') != -1) { dir = requireDir(dir, 't'); }
     else { dir = removeDir(dir, 't'); }
   }
-  
+
   // Check right
   if (h < (maxWidth-1)) {
     var src = getSource('#v'+v+'h'+(h+1));
     if(src.indexOf('l') != -1) { dir = requireDir(dir, 'r'); }
     else { dir = removeDir(dir, 'r'); }
   }
-  
+
   // Check bottom
   if (v < (maxHeight-1)) {
     var src = getSource('#v'+(v+1)+'h'+h);
     if(src.indexOf('t') != -1) { dir = requireDir(dir, 'b'); }
     else { dir = removeDir(dir, 'b'); }
   }
-  
+
   // Check left
   if (h > 1) {
     var src = getSource('#v'+v+'h'+(h-1));
     if(src.indexOf('r') != -1) { dir = requireDir(dir, 'l'); }
     else { dir = removeDir(dir, 'l'); }
   }
-  
+
   // Replace tile
   var id = '#v'+v+'h'+h;
   var temp = Math.floor(Math.random()*dir.length);
@@ -137,13 +123,13 @@ function getRandomTile()
 function replaceTile(tile)
 {
   if (!tile) { tile = getRandomTile(); }
-  
+
   if (tile.id != wloc.id)
   {
     // Get location
     var v = tile.v;
     var h = tile.h;
-    
+
     // Set new random tile
     var dir = options.slice(0);
     dir = fixEdges(v, h, dir);
@@ -151,7 +137,7 @@ function replaceTile(tile)
     $(tile.id).attr('src', 'img/'+randomtile+'.jpg');
     if (history) { visited['v'+tile.v]['h'+tile.h] = 0; }
     if (debugMode) { $(tile.id).css({ opacity: 1 }); }
-    
+
     // Fix neighbours
     if (v > 1) { fixBlock(v-1, h); }
     if (h < (maxWidth-1)) { fixBlock(v, h+1); }
@@ -198,7 +184,7 @@ function removeVisited(dirs, dir)
   if (dir == 'r') { v = wloc.v; h = (wloc.h+1); }
   if (dir == 'b') { v = (wloc.v+1); h = wloc.h; }
   if (dir == 'l') { v = wloc.v; h = (wloc.h-1); }
-  
+
   if (dirs.length > 1) {
     if (dirs.indexOf(dir) != -1) {
       if (visited['v'+v]['h'+h] > 0) {
@@ -215,13 +201,13 @@ function walk()
   // Get possible directions
   var src = $(wloc.id).attr('src');
   var dirs = src.substring(4, src.length-4);
-  
+
   // Avoid going back
   if (dirs.length > 1) {
     var re = new RegExp(camefrom, 'g');
     dirs = dirs.replace(re, '');
   }
-  
+
   // Avoid previously visited positions
   if (history && dirs.length > 1)
   {
@@ -235,19 +221,19 @@ function walk()
     if (vSum['b'] < least) { least = vSum['b']; }
     if (dirs.indexOf('l') != -1 && wloc.h > 1) { vSum['l'] = visited['v'+wloc.v]['h'+(wloc.h-1)]; } else { vSum['l'] = 99999; }
     if (vSum['l'] < least) { least = vSum['l']; }
-    
+
     /* if (debugMode) { console.log('T: '+vSum['t']+', R: '+vSum['r']+', B: '+vSum['b']+', L: '+vSum['l']+' / least: '+ least ); } */
-    
+
     dirs = '';
     if (vSum['t'] == least) { dirs = 't'; }
     if (vSum['r'] == least) { dirs = dirs + 'r'; }
     if (vSum['b'] == least) { dirs = dirs + 'b'; }
     if (vSum['l'] == least) { dirs = dirs + 'l'; }
   }
-  
+
   // Select random direction from available directions
   var dir = dirs[(Math.floor(Math.random()*(dirs.length)))];
-  
+
   // Move walker
   if (dir == 't') { wloc.v--; camefrom = 'b'; }
   if (dir == 'r') { wloc.h++; camefrom = 'l'; }
@@ -302,11 +288,7 @@ function toggleDebugMode()
   else { debugMode = false; $('#playfield img.tile').css({ opacity: 1 }); $('#debug_state').css('text-decoration', 'none'); }
 }
 
-
-// Document ready
-$(document).ready(function()
-{
-  
+(function($) {
   // Mouse interaction
   $('#playfield img.tile').mouseover(function(){
     var id = '#'+$(this).attr('id');
@@ -315,22 +297,56 @@ $(document).ready(function()
     var h = Number(pos[1]);
     replaceTile({v: v, h: h, id: id});
   });
-  
+
   // Keyboard shortcuts
-  $('body').keyup(function(e){
-    if(e.keyCode == 67){ clearBoard(); } // C
-    if(e.keyCode == 82){ toggleRandomizer(); } // R
-    if(e.keyCode == 87){ toggleWalker(); } // W
-    if(e.keyCode == 72){ toggleHistory(); } // H
-    if(e.keyCode == 68){ toggleDebugMode(); } // D
-    // if(e.keyCode == 78){ walk(); } // N
+  $('body').keyup(function(e) {
+    switch(e.keyCode) {
+      case 67: // C
+        clearBoard();
+        break;
+
+      case 82: // R
+        toggleRandomizer();
+        break;
+
+      case 87: // W
+        toggleWalker();
+        break;
+
+      case 72: // H
+        toggleHistory();
+        break;
+
+      case 68: // D
+        toggleDebugMode();
+        break;
+    }
   });
-  
+
   // Buttons
-  $('#clear').click(function() { clearBoard(); });
-  $('#randomizer_state').click(function() { toggleRandomizer(); });
-  $('#walker_state').click(function() { toggleWalker(); });
-  $('#history_state').click(function() { toggleHistory(); });
-  $('#debug_state').click(function() { toggleDebugMode(); });
-  
-});
+  $('footer li a').click(function() {
+    switch($(this).data('action')) {
+      case 'clear':
+        clearBoard();
+        break;
+
+      case 'randomize':
+        toggleRandomizer();
+        break;
+
+      case 'walker':
+        toggleWalker();
+        break;
+
+      case 'history':
+        toggleHistory();
+        break;
+
+      case 'debug':
+        toggleDebugMode();
+        break;
+    }
+
+    return false;
+  });
+})(jQuery);
