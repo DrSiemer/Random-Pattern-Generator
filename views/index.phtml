@@ -23,54 +23,11 @@
     <div id="main">
       <div id="playfield">
         <?php
-        function requireDir($arr, $dir)
-        {
-          foreach($arr as $key => $val) {
-            if(strpos($val, $dir) === false) { unset($arr[$key]); }
-          }
-          return $arr;
-        }
-
-        function removeDir($arr, $dir)
-        {
-          foreach($arr as $key => $val) {
-            if(strpos($val, $dir) !== false) { unset($arr[$key]); }
-          }
-          return $arr;
-        }
-
-        $h=1;
-
-        for ($y = 1; $y <= $generator->getMaxHeight(); $y++) {
-          for ($x = 1; $x < $generator->getMaxWidth(); $x++) {
-            // Tile set with double entries to restrain dead ends and crossings
-            $options = array('x', 't', 'r', 'b', 'l', 'trbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl');
-
-            // Fix edges
-            if ($x == 1) { $options = removeDir($options, 'l'); }
-            if ($y == 1) { $options = removeDir($options, 't'); }
-            if ($x == ($generator->getMaxWidth() - 1)) { $options = removeDir($options, 'r'); }
-            if ($y == ($generator->getMaxHeight() - 1)) { $options = removeDir($options, 'b'); }
-
-            // Check left
-            if (preg_match('/r/', $left)) { $options = requireDir($options, 'l'); }
-            else { $options = removeDir($options, 'l'); }
-
-            // Check up
-            if ($y != 1) {
-              $above = $tiles[$y-1][$x];
-              if (preg_match('/b/', $above)) { $options = requireDir($options, 't'); }
-              else { $options = removeDir($options, 't'); }
+        foreach ($generator as $rowKey => $row) {
+            foreach ($row as $columnKey => $column) {
+                echo '        <img class="tile" id="y' . $rowKey . 'y' . $columnKey . '" src="/img/' . $column . '.jpg" width="30" height="30" alt="">';
             }
-
-            // Place next tile
-            $tile = $options[array_rand($options)];
-            $left = $tile;
-            $tiles[$y][$x] = $tile;
-            if ($tile) { echo '<img class="tile" id="v'.$y.'h'.$x.'" src="img/'.$tile.'.jpg" width="30" height="30" alt="">'; }
-          }
-
-          echo '<br/>';
+            echo '<br>';
         }
         ?>
         <img id="walker" src="img/walker.png" width="8" height="8">
