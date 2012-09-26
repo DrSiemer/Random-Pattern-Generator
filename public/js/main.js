@@ -1,11 +1,23 @@
-function RandomPatternGenerator($playfield)
+function RandomPatternGenerator($playfield, tileHistory)
 {
   this.$playfield = $playfield;
   this.maxWidth = this.$playfield.data('maximum-x');
   this.maxHeight = this.$playfield.data('maximum-y');
+
+  this.debugMode = false;
+  this.tileHistory = tileHistory;
+
+  this.initialize = function () {
+  }.bind(this);
+
+  this.initialize();
+}
+
+function TileHistory()
+{
   this.history = [];
 
-  this.initializeHistory = function() {
+  this.initialize = function () {
     // cache the initialized array to prevent looping when it is not needed
     var temp = [];
     for (var x = 1; x < this.maxWidth; x++) {
@@ -17,16 +29,14 @@ function RandomPatternGenerator($playfield)
     }
   }.bind(this);
 
-  this.initialize = function () {
-    this.initializeHistory();
-  }.bind(this);
-
   this.initialize();
 }
 
+
+
+
+
 var debugMode = false;
-var maxWidth = 41;
-var maxHeight = 21;
 var options = ['x', 't', 'r', 'b', 'l', 'trbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl'];
 var randomizer;
 var randomizer_active = false;
@@ -304,7 +314,9 @@ function toggleDebugMode()
 }
 
 (function($) {
-  var randomPatternGenerator = new RandomPatternGenerator($('#playfield'));
+  var $playfield = $('#playfield');
+  var tileHistory = new TileHistory($playfield);
+  var randomPatternGenerator = new RandomPatternGenerator($playfield, tileHistory);
 
   // Mouse interaction
   $('#playfield img.tile').mouseover(function(){
