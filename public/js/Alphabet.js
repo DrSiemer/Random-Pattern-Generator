@@ -1,5 +1,5 @@
-// todo: find fix for impossible values: kvxz
-// implemented values: abcdefghijklmnopqrstuwy0123456789-+
+// todo: find fix for impossible values: vxz
+// implemented values: abcdefghijklmnopqrstuwy0123456789-+ .
 function Alphabet() {
   this.renderCharacter = function(character, startX, startY) {
     switch (character) {
@@ -9,6 +9,14 @@ function Alphabet() {
 
       case '+':
         character = 'plus';
+        break;
+
+      case ' ':
+        character = 'space';
+        break;
+
+      case '.':
+        character = 'dot';
         break;
     }
 
@@ -161,6 +169,20 @@ function Alphabet() {
     $('[data-x="' + startX + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/r.jpg');
     $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/rl.jpg');
     $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/tl.jpg');
+  };
+
+  this.writeK = function(startX, startY) {
+    $('[data-x="' + startX + '"][data-y="' + startY + '"]').attr('src', '/img/b.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + startY + '"]').attr('src', '/img/rb.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + startY + '"]').attr('src', '/img/l.jpg');
+
+    $('[data-x="' + startX + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/trb.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/tbl.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/x.jpg');
+
+    $('[data-x="' + startX + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/t.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/tr.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/l.jpg');
   };
 
   this.writeL = function(startX, startY) {
@@ -498,4 +520,32 @@ function Alphabet() {
     $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/t.jpg');
     $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/x.jpg');
   };
+
+  this.writeSpace = function(startX, startY) {
+    $('[data-x="' + startX + '"][data-y="' + startY + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + startY + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + startY + '"]').attr('src', '/img/x.jpg');
+
+    $('[data-x="' + startX + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/x.jpg');
+
+    $('[data-x="' + startX + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/x.jpg');
+  };
+
+  this.writeDot = function(startX, startY) {
+    $('[data-x="' + startX + '"][data-y="' + startY + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + startY + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + startY + '"]').attr('src', '/img/x.jpg');
+
+    $('[data-x="' + startX + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/x.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 1) + '"]').attr('src', '/img/x.jpg');
+
+    $('[data-x="' + startX + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/r.jpg');
+    $('[data-x="' + (startX + 1) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/l.jpg');
+    $('[data-x="' + (startX + 2) + '"][data-y="' + (startY + 2) + '"]').attr('src', '/img/x.jpg');
+  }
 }
