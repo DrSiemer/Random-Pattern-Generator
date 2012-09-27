@@ -1,43 +1,4 @@
-function RandomPatternGenerator($playfield, tileHistory)
-{
-  this.$playfield = $playfield;
-  this.maxWidth = this.$playfield.data('maximum-x');
-  this.maxHeight = this.$playfield.data('maximum-y');
-
-  this.debugMode = false;
-  this.tileHistory = tileHistory;
-
-  this.initialize = function () {
-  }.bind(this);
-
-  this.initialize();
-}
-
-function TileHistory()
-{
-  this.history = [];
-
-  this.initialize = function () {
-    // cache the initialized array to prevent looping when it is not needed
-    var temp = [];
-    for (var x = 1; x < this.maxWidth; x++) {
-      temp[(y-1)].push(0);
-    }
-
-    for (var y = 1; y < this.maxHeight; y++) {
-      this.history.push(temp);
-    }
-  }.bind(this);
-
-  this.initialize();
-}
-
-
-
-
-
 var debugMode = false;
-var options = ['x', 't', 'r', 'b', 'l', 'trbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl', 'trb', 'trl', 'tbl', 'rbl', 'tr', 'tb', 'tl', 'rb', 'rl', 'bl'];
 var randomizer;
 var randomizer_active = false;
 var randomizer_speed = 1;
@@ -47,130 +8,6 @@ var walker_speed = 150;
 var wloc = [];
 var camefrom;
 var history = true;
-var visited = setupVisited();
-
-
-// Remove all options without a specific direction
-function requireDir(arr, dir)
-{
-  var f = new Array();
-  for (var i=0; i<arr.length; i++) {
-    if(arr[i].indexOf(dir) != -1) { f.push(arr[i]); }
-  }
-  return f;
-}
-
-// Remove all options with a specific direction
-function removeDir(arr, dir)
-{
-  var f = new Array();
-  for (var i=0; i<arr.length; i++) {
-    if(arr[i].indexOf(dir) == -1) { f.push(arr[i]); }
-  }
-  return f;
-}
-
-
-// Get tile image (= directions)
-function getSource(id)
-{
-  var src = $(id).attr('src').match(/[-_\w]+[.][\w]+$/i)[0];
-  var src = src.substring(0, src.length - 4);
-  return src;
-}
-
-
-// Don't check beyond the playfield edges
-function fixEdges(v, h, dir)
-{
-  if (h == 1) { dir = removeDir(dir, 'l'); }
-  if (v == 1) { dir = removeDir(dir, 't'); }
-  if (h == (maxWidth-1)) { dir = removeDir(dir, 'r'); }
-  if (v == (maxHeight-1)) { dir = removeDir(dir, 'b'); }
-  return dir;
-}
-
-
-// Fix tile connections
-function fixBlock(v, h)
-{
-  var dir = options.slice(0);
-  dir = fixEdges(v, h, dir);
-
-  // Check top
-  if (v > 1) {
-    var src = getSource('#v'+(v-1)+'h'+h);
-    if(src.indexOf('b') != -1) { dir = requireDir(dir, 't'); }
-    else { dir = removeDir(dir, 't'); }
-  }
-
-  // Check right
-  if (h < (maxWidth-1)) {
-    var src = getSource('#v'+v+'h'+(h+1));
-    if(src.indexOf('l') != -1) { dir = requireDir(dir, 'r'); }
-    else { dir = removeDir(dir, 'r'); }
-  }
-
-  // Check bottom
-  if (v < (maxHeight-1)) {
-    var src = getSource('#v'+(v+1)+'h'+h);
-    if(src.indexOf('t') != -1) { dir = requireDir(dir, 'b'); }
-    else { dir = removeDir(dir, 'b'); }
-  }
-
-  // Check left
-  if (h > 1) {
-    var src = getSource('#v'+v+'h'+(h-1));
-    if(src.indexOf('r') != -1) { dir = requireDir(dir, 'l'); }
-    else { dir = removeDir(dir, 'l'); }
-  }
-
-  // Replace tile
-  var id = '#v'+v+'h'+h;
-  var temp = Math.floor(Math.random()*dir.length);
-  $(id).attr('src', 'img/'+dir[temp]+'.jpg');
-  if (history) { visited['v'+v]['h'+h] = 0; }
-  if (debugMode) { $(id).css({ opacity: 1 }); }
-}
-
-
-// Returns a random tile
-function getRandomTile()
-{
-  var v = Math.floor(Math.random()*(maxHeight-1))+1;
-  var h = Math.floor(Math.random()*(maxWidth-1))+1;
-  var id = '#v'+v+'h'+h;
-  return {v: v, h: h, id: id};
-}
-
-
-// Replace tile
-function replaceTile(tile)
-{
-  if (!tile) { tile = getRandomTile(); }
-
-  if (tile.id != wloc.id)
-  {
-    // Get location
-    var v = tile.v;
-    var h = tile.h;
-
-    // Set new random tile
-    var dir = options.slice(0);
-    dir = fixEdges(v, h, dir);
-    var randomtile = dir[Math.floor(Math.random()*dir.length)];
-    $(tile.id).attr('src', 'img/'+randomtile+'.jpg');
-    if (history) { visited['v'+tile.v]['h'+tile.h] = 0; }
-    if (debugMode) { $(tile.id).css({ opacity: 1 }); }
-
-    // Fix neighbours
-    if (v > 1) { fixBlock(v-1, h); }
-    if (h < (maxWidth-1)) { fixBlock(v, h+1); }
-    if (v < (maxHeight-1)) { fixBlock(v+1, h); }
-    if (h > 1) { fixBlock(v, h-1); }
-  }
-}
-
 
 // Update walker position
 function setWalker()
@@ -316,15 +153,12 @@ function toggleDebugMode()
 (function($) {
   var $playfield = $('#playfield');
   var tileHistory = new TileHistory($playfield);
-  var randomPatternGenerator = new RandomPatternGenerator($playfield, tileHistory);
+  var tileDebugger = new Debugger();
+  var randomPatternGenerator = new RandomPatternGenerator($playfield, tileHistory, tileDebugger);
 
   // Mouse interaction
   $('#playfield img.tile').mouseover(function(){
-    var id = '#'+$(this).attr('id');
-    var pos = id.match(/\d+/g);
-    var v = Number(pos[0]);
-    var h = Number(pos[1]);
-    replaceTile({v: v, h: h, id: id});
+    randomPatternGenerator.replaceTile($(this));
   });
 
   // Keyboard shortcuts
