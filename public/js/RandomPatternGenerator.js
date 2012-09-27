@@ -18,6 +18,12 @@ function RandomPatternGenerator($playfield, tileHistory, tileDebugger)
     ];
   }.bind(this);
 
+  // Place all empty tiles
+  this.clear = function() {
+    $('#playfield img.tile').attr('src', 'img/x.jpg');
+    this.tileHistory.reset();
+  }
+
   // replaces a tile from the grid and fixes the neighbours
   this.replaceTile = function($tile) {
     // get all possible valid tiles

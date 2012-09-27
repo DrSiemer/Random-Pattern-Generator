@@ -105,15 +105,6 @@ function walk()
   setWalker();
 }
 
-
-// Place all empty tiles
-function clearBoard()
-{
-  if (walker_active == true) { disableWalker(); }
-  $('#playfield img.tile').attr('src', 'img/x.jpg');
-  visited = setupVisited();
-}
-
 // Enable/disable randomizer
 function toggleRandomizer()
 {
@@ -165,7 +156,7 @@ function toggleDebugMode()
   $('body').keyup(function(e) {
     switch(e.keyCode) {
       case 67: // C
-        clearBoard();
+        randomPatternGenerator.clear();
         break;
 
       case 82: // R
@@ -190,7 +181,7 @@ function toggleDebugMode()
   $('footer li a').click(function() {
     switch($(this).data('action')) {
       case 'clear':
-        clearBoard();
+        randomPatternGenerator.clear();
         break;
 
       case 'randomize':
