@@ -10,7 +10,13 @@ function TileHistory($playfield)
     this.history[($tile.data('y') - 1)][($tile.data('x') - 1)] = 0;
   }.bind(this);
 
+  this.reset = function() {
+    this.initialize();
+  }.bind(this);
+
   this.initialize = function () {
+    this.history = [];
+
     // cache the initialized array to prevent looping when it is not needed
     var temp = [];
     for (var x = 1; x < this.maxWidth; x++) {
