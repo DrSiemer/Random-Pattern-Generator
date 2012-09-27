@@ -7,6 +7,9 @@ function TileHistory($playfield)
   this.history = [];
 
   this.resetTile = function($tile) {
+    // todo: check edge tiles
+    if (typeof $tile.data('x') === 'undefined' || typeof $tile.data('y') === 'undefined') return;
+
     this.history[($tile.data('y') - 1)][($tile.data('x') - 1)] = 0;
   }.bind(this);
 

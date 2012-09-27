@@ -20,9 +20,17 @@ function RandomPatternGenerator($playfield, tileHistory, tileDebugger)
 
   // Place all empty tiles
   this.clear = function() {
+    //if (walker_active == true) { disableWalker(); }
     $('#playfield img.tile').attr('src', 'img/x.jpg');
     this.tileHistory.reset();
   }
+
+  this.replaceRandomTile = function() {
+    var x = Math.floor(Math.random() * this.maxWidth) + 1;
+    var y = Math.floor(Math.random() * this.maxHeight) + 1;
+
+    this.replaceTile($('[data-x="' + x + '"][data-y="' + y + '"]'));
+  }.bind(this);
 
   // replaces a tile from the grid and fixes the neighbours
   this.replaceTile = function($tile) {

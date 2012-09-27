@@ -105,13 +105,6 @@ function walk()
   setWalker();
 }
 
-// Enable/disable randomizer
-function toggleRandomizer()
-{
-  if (randomizer_active == true) { clearInterval(randomizer); randomizer_active = false; $('#randomizer_state').css('text-decoration', 'none'); }
-  else { randomizer = setInterval(replaceTile, randomizer_speed); randomizer_active = true; $('#randomizer_state').css('text-decoration', 'underline'); }
-}
-
 // Enable/disable walker
 function enableWalker() { startWalker(); walker_active = true; $('#walker_state').css('text-decoration', 'underline'); }
 function disableWalker() { $('#walker').hide(250); walker_active = false; $('#walker_state').css('text-decoration', 'none'); }
@@ -147,6 +140,8 @@ function toggleDebugMode()
   var tileDebugger = new Debugger();
   var randomPatternGenerator = new RandomPatternGenerator($playfield, tileHistory, tileDebugger);
 
+  var randomizer = new Randomizer(randomPatternGenerator, 1);
+
   // Mouse interaction
   $('#playfield img.tile').mouseover(function(){
     randomPatternGenerator.replaceTile($(this));
@@ -160,7 +155,7 @@ function toggleDebugMode()
         break;
 
       case 82: // R
-        toggleRandomizer();
+        randomizer.toggle();
         break;
 
       case 87: // W
@@ -185,7 +180,7 @@ function toggleDebugMode()
         break;
 
       case 'randomize':
-        toggleRandomizer();
+        randomizer.toggle();
         break;
 
       case 'walker':
