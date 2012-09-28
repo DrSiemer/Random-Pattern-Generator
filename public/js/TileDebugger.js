@@ -1,4 +1,4 @@
-function Debugger() {
+function TileDebugger() {
   this.resetAllTiles = function($playfield) {
     $('img.tile', $playfield).css({
       opacity: 1

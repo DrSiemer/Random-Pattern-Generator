@@ -10,7 +10,7 @@ function toggleDebugMode()
 (function($) {
   var $playfield = $('#playfield');
   var tileHistory = new TileHistory($playfield);
-  var tileDebugger = new Debugger();
+  var tileDebugger = new TileDebugger();
   var randomPatternGenerator = new RandomPatternGenerator($playfield, tileHistory, tileDebugger);
 
   var randomizer = new Randomizer(randomPatternGenerator, 1);
