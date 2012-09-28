@@ -20,7 +20,8 @@ function RandomPatternGenerator($playfield, tileHistory, tileDebugger)
 
   // Place all empty tiles
   this.clear = function() {
-    //if (walker_active == true) { disableWalker(); }
+    $(document).trigger('clearGrid');
+
     $('#playfield img.tile').attr('src', 'img/x.jpg');
     this.tileHistory.reset();
   }
