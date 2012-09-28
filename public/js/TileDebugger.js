@@ -1,4 +1,18 @@
 function TileDebugger() {
+  this.active = false;
+  this.$toggler = $('[data-action="debug"]');
+
+  this.toggle = function() {
+    if (this.active) {
+      this.resetAllTiles();
+      this.$toggler.removeClass('active');
+    } else {
+      this.$toggler.addClass('active');
+    }
+
+    this.active = !this.active;
+  }.bind(this);
+
   this.resetAllTiles = function($playfield) {
     $('img.tile', $playfield).css({
       opacity: 1
@@ -12,6 +26,8 @@ function TileDebugger() {
   };
 
   this.updateTile = function($tile) {
+    if (!this.active) return;
+
     var currentOpacity = $tile.css('opacity');
 
     if (currentOpacity > 0.14) {
@@ -25,5 +41,5 @@ function TileDebugger() {
         opacity: newOpacity
       });
     }
-  };
+  }.bind(this);
 }

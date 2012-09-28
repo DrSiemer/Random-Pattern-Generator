@@ -1,12 +1,3 @@
-var debugMode = false;
-
-// Enable/disable debugMode
-function toggleDebugMode()
-{
-  if (debugMode == false) { debugMode = true; $('#debug_state').css('text-decoration', 'underline'); }
-  else { debugMode = false; $('#playfield img.tile').css({ opacity: 1 }); $('#debug_state').css('text-decoration', 'none'); }
-}
-
 (function($) {
   var $playfield = $('#playfield');
   var tileHistory = new TileHistory($playfield);
@@ -47,7 +38,7 @@ function toggleDebugMode()
         break;
 
       case 68: // D
-        toggleDebugMode();
+        tileDebugger.toggle();
         break;
     }
   });
@@ -72,7 +63,7 @@ function toggleDebugMode()
         break;
 
       case 'debug':
-        toggleDebugMode();
+        tileDebugger.toggle();
         break;
     }
 
