@@ -101,3 +101,58 @@ td { vertical-align: top; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
 }
+
+/* Site specific CSS */
+#main {
+    position: relative;
+    margin: auto;
+    width: 1200px;
+    padding-top: 25px;
+}
+
+.tile {
+    float: left;
+}
+
+#shortcuts {
+    text-align: center;
+}
+
+#walker {
+    position: absolute;
+    display: none;
+}
+
+.hint {
+    cursor: pointer;
+}
+
+footer {
+    display: block; width: 1200px; margin: 0 auto; text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer li {
+    display: inline;
+    border-left: 1px solid black;
+    padding-left: 5px;
+    padding-right: 1px;
+}
+
+footer li:first-child {
+    border-left: 0;
+    padding-left: 0;
+}
+
+footer ul a, footer ul a:hover, footer ul a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+footer ul a.active {
+    text-decoration: underline;
+}

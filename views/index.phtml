@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Random Pattern Generator</title>
+    <meta name="Random Pattern Generator" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <script>
+      if (window!=top){top.location.href=location.href;}
+      document.createElement('header');
+      document.createElement('nav');
+      document.createElement('section');
+      document.createElement('article');
+      document.createElement('aside');
+      document.createElement('footer');
+      document.createElement('time');
+    </script>
+  </head>
+  <body>
+    <div id="main">
+      <div id="playfield" data-maximum-x="<?php echo $generator->getMaxWidth(); ?>" data-maximum-y="<?php echo $generator->getMaxHeight(); ?>">
+        <?php
+        foreach ($generator as $rowKey => $row) {
+            foreach ($row as $columnKey => $column) {
+                echo '        <img class="tile" data-y="' . $rowKey . '" data-x="' . $columnKey . '" src="/img/' . $column . '.jpg" width="30" height="30" alt="">';
+            }
+            echo '<br>';
+        }
+        ?>
+        <img id="walker" src="img/walker.png" width="8" height="8">
+      </div>
+    </div>
+    <footer>
+      <ul class="shortcuts">
+        <li>Press <strong>C</strong> to <a href="#" class="hint" title="Clear the board" data-action="clear">clear the board</a></li>
+        <li>Press <strong>R</strong> to toggle the <a href="#" class="hint" title="Replaces random tiles" data-action="randomize">Randomizer</a></li>
+        <li>Press <strong>W</strong> to start the <a href="#" class="hint" title="Shows a blue ball exploring the maze" data-action="walker">Walker</a></li>
+        <li>Press <strong>H</strong> to toggle <a href="#" class="hint active" title="The walker will avoid visited tiles" data-action="history">History</a></li>
+        <li>Press <strong>D</strong> to toggle <a href="#" class="hint" title="Fade out visited tiles" data-action="debug">Debugmode</a></li>
+      </ul>
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.0.min.js"><\/script>');</script>
+    <?php if (RPG_ENV === RPG_ENV_PRODUCTION) { ?>
+    <script src="/js/min.js"></script>
+    <?php } else { ?>
+    <script src="/js/shuffle.js"></script>
+    <script src="/js/RandomPatternGenerator.js"></script>
+    <script src="/js/TileHistory.js"></script>
+    <script src="/js/TileDebugger.js"></script>
+    <script src="/js/Randomizer.js"></script>
+    <script src="/js/Walker.js"></script>
+    <script src="/js/Alphabet.js"></script>
+    <script src="/js/TypeWriter.js"></script>
+    <script src="/js/main.js"></script>
+    <?php } ?>
+  </body>
+</html>
